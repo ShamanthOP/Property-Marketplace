@@ -64,9 +64,9 @@ const Form = () => {
                     value={formik.values.contactNo}
                   />
                 </FormControl>
-                <Button type="submit" colorScheme="blue" width='full'>
-                  <Link href='/confirmation'>Submit</Link>
-                </Button>
+               
+                  <Link href='/confirmation'>  <Button type="submit" colorScheme="blue" width='full'> Submit</Button></Link>
+                
                 <Link href='/'>
                   <Button type="cancel" colorScheme="blue" width='full'>
                     Cancel
