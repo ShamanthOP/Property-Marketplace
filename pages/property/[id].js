@@ -1,12 +1,14 @@
-import { Box, Spacer, Avatar, Text, Flex } from '@chakra-ui/react';
-import { FaBed, FaBath } from 'react-icons/fa'
+import Link from 'next/link';
+import { Box, Spacer, Avatar, Text, Flex, Button } from '@chakra-ui/react';
+import { FaBed, FaBath, FaRegMoneyBillAlt } from 'react-icons/fa'
 import { BsGridFill } from 'react-icons/bs';
 import { GoVerified } from 'react-icons/go';
 import millify from 'millify';
 import { fetchApi, baseUrl } from '../../utils/fetchApi';
 import ImageScrollbar from '../../components/ImageScrollbar';
     
-const PropertyDetails = ({ propertyDetails: { price, rentFrequency, rooms, title, baths, area, agency, isVerified, description, type, purpose, furnishingStatus, amenities, photos }}) => (
+const PropertyDetails = ({ propertyDetails: { price, rentFrequency, rooms, title, baths, area, agency, isVerified, description, type, purpose, furnishingStatus, amenities, photos }, siteID}) => (
+    
     <Box minWidth='1000px' margin='auto' p='4'>
         { photos && <ImageScrollbar data={photos}/> }
         <Box w='full' p='6'>
@@ -51,6 +53,13 @@ const PropertyDetails = ({ propertyDetails: { price, rentFrequency, rooms, title
                         ))
                     ))}
                 </Flex>
+                <Flex justifyContent='center'>
+                    <Link href={`/${purpose}-${siteID}`}>
+                        <Button leftIcon={<FaRegMoneyBillAlt />} colorScheme='green' variant='solid' m={7} width='420px'>
+                            Buy Now
+                        </Button>
+                    </Link>
+                </Flex>
             </Box>
         </Box>
     </Box>
@@ -60,7 +69,8 @@ export async function getServerSideProps({ params: { id }}) {
     const data = await fetchApi(`${baseUrl}/properties/detail?externalID=${id}`)
     return {
         props: {
-            propertyDetails: data
+            propertyDetails: data, 
+            siteID: `${id}`
         }
     }
 }
