@@ -8,13 +8,10 @@ import {
     Box
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import { useFormik } from "formik";
 
 const Form = () => {
- 
-    const { asPath } = useRouter();
-    let str = asPath.replace('/for-rent-', '');
+
     const formik = useFormik({
         initialValues: {
           email: "",
@@ -68,11 +65,13 @@ const Form = () => {
                   />
                 </FormControl>
                 <Button type="submit" colorScheme="blue" width='full'>
-                  Submit
+                  <Link href='/confirmation'>Submit</Link>
                 </Button>
-                <Button type="cancel" colorScheme="blue" width='full'>
-                  Cancel
-                </Button>
+                <Link href='/'>
+                  <Button type="cancel" colorScheme="blue" width='full'>
+                    Cancel
+                  </Button>
+                </Link>
               </VStack>
             </form>
           </Box>
